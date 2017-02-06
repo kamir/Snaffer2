@@ -1,0 +1,20 @@
+{
+    "namespace":"com.cloudera.security.checks",
+    "type":"record",
+    "doc":"This Schema describes a DATA PACKET",
+    "name":"Packet",
+    "fields":[
+    	{"name":"packet_grab_nr", "type": "long"    },
+        {"name":"ts",             "type": "long"    },
+        {"name":"srcIP",          "type": "string"  },
+        {"name":"dstIP",          "type": "string"  },
+	{"name":"srcPort",        "type": "int"     },
+        {"name":"dstPort",        "type": "int"     },
+        {"name":"seqNumber",      "type": "int"     },
+        {"name":"ackNumber",      "type": "int"     },
+        {"name":"dumpHost",       "type": "string"  },
+        {"name":"protocolType",   "type": "string"  },
+	{"name":"dumpDevice",     "type": ["null", "string"] },
+	{"name":"data",           "type": ["null", "bytes"] }
+    ]
+}
