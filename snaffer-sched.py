@@ -14,6 +14,7 @@
 # This tool supports the cluster-hardening procedure.
 #
 
+
 import pcapy
 import socket
 import struct 
@@ -21,12 +22,14 @@ import time
 import sys
 import string
 import array
-from datetime import datetime
+import datetime
 
 from avro import schema, datafile, io
 import pprint
 
 from time import gmtime, strftime
+from impacket import ImpactDecoder
+
 
 #
 # The Avro dumpfile will be in the dump folder and it contains hostname and timestamp
@@ -97,7 +100,7 @@ def Select_Capture_Devices(Capture_Device):
 			
 	return Capture_Device
 
-def Analyze_Packet_AVRO(Packet, ZP):
+def Analyze_Packet_AVRO_OLD(Packet, ZP, ts):
 	
 	Packet_Store = None
 	
@@ -150,9 +153,69 @@ def Analyze_Packet_AVRO(Packet, ZP):
 			"dumpHost":     hostname,
 			"protocolType": Protocol_Type,
 			"dumpDevice":   Dump_Device,
-			"ts":			0  }		
+			"ts":           ts  }		
   
 	return record	
+	
+	
+def Analyze_Packet_AVRO(Packet, hdr, ZP):
+	
+	Packet_Store = None
+	
+	Ethernet_Header_Length = 14
+	
+	Ethernet_Header = Packet[:Ethernet_Header_Length]
+	
+	
+	Ethernet_Header = struct.unpack(ETHERNET_UNPACK_FORMAT,Ethernet_Header)
+	Ethernet_Protocol = socket.ntohs(Ethernet_Header[2])
+
+	
+	if Ethernet_Protocol == 8:
+		IP_Header = Packet[Ethernet_Header_Length : Ethernet_Header_Length + 20]
+		IP_Header = struct.unpack(IP_UNPACK_FORMAT,IP_Header)
+		
+		IP_Header_Length = IP_Header[0] & 0xF
+		IP_Header_Length = IP_Header_Length * 4
+		Total_Header_Length = IP_Header_Length + Ethernet_Header_Length
+		
+		IP_Protocol = IP_Header[6]
+		
+		Source_IP = socket.inet_ntoa(IP_Header[8])
+		Destination_IP = socket.inet_ntoa(IP_Header[9])
+
+
+		
+		Protocol_Type = 'Unknown'
+		if IP_Protocol == 6 :
+			Protocol_Type = 'TCP'
+			Packet_Dump = Analyze_Protocol(Packet,Total_Header_Length,20,TCP_UNPACK_FORMAT)
+
+			Ports_Dump = Analyze_Ports(Packet,Total_Header_Length,20,TCP_UNPACK_FORMAT)
+
+		elif IP_Protocol == 17:	
+			Protocol_Type = 'UDP'
+			Packet_Dump = Analyze_Protocol(Packet,Total_Header_Length,8,UDP_UNPACK_FORMAT)
+		elif IP_Protocol == 1:	
+			Protocol_Type = 'ICMP'	
+			Packet_Dump = Analyze_Protocol(Packet,Total_Header_Length,4,ICMP_UNPACK_FORMAT)
+			
+		Packet_Store = '%s|%s|%s|%s|%s|'%(Source_IP, Destination_IP,Protocol_Type,Total_Header_Length,Packet_Dump)
+		
+		record = {      "packet_grab_nr": ZP,
+			"srcIP":        Source_IP,
+			"dstIP":        Destination_IP,
+			"srcPort":      Ports_Dump[0],
+			"dstPort":      Ports_Dump[1],
+			"seqNumber":    0,
+			"ackNumber":    0,
+			"data":         Packet_Dump,
+			"dumpHost":     hostname,
+			"protocolType": Protocol_Type,
+			"dumpDevice":   Dump_Device,
+			"ts":		ts }		
+  
+	return record
 
 def Analyze_Packet(Packet):
 	
@@ -188,7 +251,7 @@ def Analyze_Packet(Packet):
 			Protocol_Type = 'ICMP'	
 			Packet_Dump = Analyze_Protocol(Packet,Total_Header_Length,4,ICMP_UNPACK_FORMAT)
 			
-		Packet_Store = '%s|%s|%s|%s|%s|'%(Source_IP, Destination_IP,Protocol_Type,Total_Header_Length,Packet_Dump)
+		Packet_Store = '%s|%s|%s|%s|%s|'%(Source_IP, Destination_IP,Protocol_Type,Total_Header_Length,"-----") #Packet_Dump)
 		
 	return Packet_Store		
 
@@ -249,8 +312,8 @@ def main():
 		return
 		
 	Capture_Device = sys.argv[1]		
-	Start_Time  = datetime.strptime(sys.argv[2], '%Y-%m-%d %H:%M:%S')
-        End_Time = datetime.strptime(sys.argv[3], '%Y-%m-%d %H:%M:%S')
+	Start_Time  = datetime.datetime.strptime(sys.argv[2], '%Y-%m-%d %H:%M:%S')
+        End_Time = datetime.datetime.strptime(sys.argv[3], '%Y-%m-%d %H:%M:%S')
 
 	Dump_Device = Capture_Device
 	
@@ -285,7 +348,7 @@ def main():
 	if Capture_Device is None:
 		return
 
-        while datetime.now() < Start_Time :
+        while datetime.datetime.now() < Start_Time :
                 time.sleep(0.1)
 	
 	logWrite('Sniffing Device Selected %s'%(Capture_Device))
@@ -298,18 +361,42 @@ def main():
 	ZP = 0
 	while True :
 		try:
-			if datetime.now() > End_Time : 
+			if datetime.datetime.now() > End_Time : 
 				break
 
 			Packet_Header,Packet = Capture_Device.next()
 			Packet_Store = Analyze_Packet(Packet)
-
+			
+			
 			if Packet_Store is not None:
-				Packet_RECORD = Analyze_Packet_AVRO(Packet,ZP)
-				#logWrite(Packet_Store)
-				#dumpData(Packet_Store)
-				dumpData2Avro(Packet_RECORD,df_writer,ZP)
-				ZP = ZP + 1
+
+
+			    decoder = ImpactDecoder.EthDecoder()
+			    ethernet_pck = decoder.decode(Packet)
+	
+	#
+	# http://securityblog.gr/1032/simple-python-sniffer-with-pcapy-and-impacket/
+	#
+	
+			    try:
+				ts = Packet_Header.getts()[0]
+			    except Exception, e:
+				logWrite("Snaffer:receive_packets : failed getting timestamp from header. Exception: %s" % str(e))
+#	                              
+			    #print '***************'
+#	print ts
+#
+		    	    #print( datetime.datetime.fromtimestamp( int(ts) ).strftime('%Y-%m-%d %H:%M:%S.%f') )
+#	                
+		    	    #print '***************'
+
+
+			    Packet_RECORD = Analyze_Packet_AVRO_OLD(Packet,ZP,ts)
+				
+			    #logWrite(Packet_Store)
+			    #dumpData(Packet_Store)
+			    dumpData2Avro(Packet_RECORD,df_writer,ZP)
+			    ZP = ZP + 1
 		except KeyboardInterrupt as e:
 			logWrite('Network Sniffing Stopped')
 			break
