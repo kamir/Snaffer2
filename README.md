@@ -6,19 +6,17 @@ A communication graph shows the hotspots. Time dependent views allow application
 
 Cybersecurity is a broad topic and many commercial products are related to it. We demonstrate a fundamental concept in network analysis: re-construction and visualization of temporal networks. Furthermore, we apply the method to describe operational conditions of a Hadoop cluster. Our experiments provide first results and allow a classification of the cluster state related to current workloads. The temporal networks show significant differences for different operation modes. In reallity we would expect mixed workloads. If such workload parameters are known, we are able to handle a-typical events accordingly - which means, we are able to create alerts based on context information, rather than only the package content. We show an end-to-end example: (1) Data collection is done via python, using the sniffer script; (2) using Apache Hive and Apache Spark we analyze the network traffic data and create the temporary network. Finally, we are able to visualize the results using Gephi in step (3). In a next step, we plan to contribute to the Apache Spot project.
 
-See our presentation @FOSDEM 2017: (https://fosdem.org/2017/schedule/event/graph_traffic_analysis_hadoop_patterns/)
+See our presentation @FOSDEM 2017: 
+(https://fosdem.org/2017/schedule/event/graph_traffic_analysis_hadoop_patterns/)
 
-The slides are on Slideshare: (http://www.slideshare.net/mirkokaempf/pcap-graphs-for-cybersecurity-an-system-tuning)
+The slides are on Slideshare: 
+(http://www.slideshare.net/mirkokaempf/pcap-graphs-for-cybersecurity-an-system-tuning)
 
 ![alt text](doc/snap-4.jpg?raw=true "Links between Hosts, based on packet traffic.")
 
-Simple statistics is done via Hive.
+Simple statistics is done via Hive, and for advanced analysis we use Apache Spark.
 
 ![alt text](doc/snap-2.jpg?raw=true "Packets per host")
-
-More advanced packet content inspection follows soon ... (via Apache Spark).
-
-
 
 # Our Tools: 
 
