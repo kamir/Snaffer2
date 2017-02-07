@@ -97,7 +97,7 @@ packetdump_quickstart.cloudera_lo_2016-10-28 09:00:04.avro
 
 # EDH based TSB and Network Analysis Workbench
 
-![alt text](Snaffer2/doc/Snaffer-and-Apache-Spot - The Cybersecurity-Workbench-for-Apache-Spark-on-CDH.png "Architectural Overview")
+![alt text](https://raw.githubusercontent.com/kamir/Snaffer2/master/doc/Snaffer-and-Apache-Spot%20-%20The%20Cybersecurity-Workbench-for-Apache-Spark-on-CDH.png "Architectural Overview")
 
 
 ## Packet Analysis in Hadoop
