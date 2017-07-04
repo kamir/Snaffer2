@@ -1,0 +1,9 @@
+org.gephi.appearance.plugin.PartitionElementColorTransformer
+org.gephi.appearance.plugin.RankingElementColorTransformer
+org.gephi.appearance.plugin.RankingLabelColorTransformer
+org.gephi.appearance.plugin.RankingLabelSizeTransformer
+org.gephi.appearance.plugin.RankingNodeSizeTransformer
+org.gephi.appearance.plugin.UniqueElementColorTransformer
+org.gephi.appearance.plugin.UniqueLabelColorTransformer
+org.gephi.appearance.plugin.UniqueLabelSizeTransformer
+org.gephi.appearance.plugin.UniqueNodeSizeTransformer

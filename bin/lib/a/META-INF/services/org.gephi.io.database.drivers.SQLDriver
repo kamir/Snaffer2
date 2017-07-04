@@ -1,0 +1,6 @@
+org.gephi.io.database.drivers.MySQLDriver
+#position=10
+org.gephi.io.database.drivers.SQLiteDriver
+#position=20
+org.gephi.io.database.drivers.PostgreSQLDriver
+#position=30

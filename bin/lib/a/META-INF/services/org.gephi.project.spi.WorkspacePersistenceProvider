@@ -1,0 +1,14 @@
+org.gephi.graph.GraphPersistenceProvider
+#position=100
+org.gephi.graph.LegacyGraphPersistenceProvider
+#position=110
+org.gephi.graph.LegacyDataPersistenceProvider
+#position=120
+org.gephi.graph.LegacyAttributePersistenceProvider
+#position=130
+org.gephi.graph.LegacyAttributeRowsPersistenceProvider
+#position=140
+org.gephi.preview.PreviewPersistenceProvider
+org.gephi.statistics.StatisticsPersistenceProvider
+org.gephi.layout.LayoutModelPersistenceProvider
+org.gephi.filters.FilterModelPersistenceProvider

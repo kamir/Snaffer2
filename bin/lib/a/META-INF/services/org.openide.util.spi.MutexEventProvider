@@ -1,0 +1,4 @@
+org.netbeans.modules.openide.util.Compact2MutexEventProvider
+#position=1000
+org.netbeans.modules.openide.util.NbMutexEventProvider
+#position=100

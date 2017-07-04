@@ -1,0 +1,8 @@
+org.gephi.filters.plugin.attribute.AttributeEqualBuilder
+org.gephi.filters.plugin.attribute.AttributeNonNullBuilder
+org.gephi.filters.plugin.attribute.AttributeRangeBuilder
+org.gephi.filters.plugin.dynamic.DynamicRangeBuilder
+org.gephi.filters.plugin.partition.InterEdgesBuilder
+org.gephi.filters.plugin.partition.IntraEdgesBuilder
+org.gephi.filters.plugin.partition.PartitionBuilder
+org.gephi.filters.plugin.partition.PartitionCountBuilder

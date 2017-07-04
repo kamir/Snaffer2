@@ -1,0 +1,3 @@
+org.gephi.preview.G2DRenderTargetBuilder
+org.gephi.preview.PDFRenderTargetBuilder
+org.gephi.preview.SVGRenderTargetBuilder

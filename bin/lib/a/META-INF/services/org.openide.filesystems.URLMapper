@@ -1,0 +1,5 @@
+org.netbeans.modules.masterfs.MasterURLMapper
+org.netbeans.modules.openide.filesystems.DefaultURLMapperProxy
+org.openide.filesystems.MemoryFileSystem$Mapper
+org.netbeans.core.startup.layers.ArchiveURLMapper
+org.netbeans.core.startup.layers.NbinstURLMapper

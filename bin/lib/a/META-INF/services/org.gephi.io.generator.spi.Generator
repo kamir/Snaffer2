@@ -1,0 +1,3 @@
+org.gephi.io.generator.plugin.DynamicGraph
+org.gephi.io.generator.plugin.MultiGraph
+org.gephi.io.generator.plugin.RandomGraph

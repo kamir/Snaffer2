@@ -1,0 +1,3 @@
+org.netbeans.core.startup.ModuleLifecycleManager
+org.netbeans.core.NbLifecycleManager
+#-org.netbeans.core.startup.ModuleLifecycleManager

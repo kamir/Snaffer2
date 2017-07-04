@@ -1,0 +1,7 @@
+org.gephi.preview.plugin.builders.NodeBuilder
+#position=100
+org.gephi.preview.plugin.builders.NodeLabelBuilder
+#position=200
+org.gephi.preview.plugin.builders.EdgeBuilder
+#position=300
+org.gephi.preview.plugin.builders.EdgeLabelBuilder

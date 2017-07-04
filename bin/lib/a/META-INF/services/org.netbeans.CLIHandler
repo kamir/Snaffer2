@@ -1,0 +1,5 @@
+org.netbeans.core.startup.CLITestModuleReload
+#position=0
+org.netbeans.core.startup.CLICoreBridge
+org.netbeans.core.startup.CLIOptions
+org.netbeans.core.CLIOptions2

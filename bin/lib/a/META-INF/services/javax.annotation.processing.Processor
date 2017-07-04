@@ -1,0 +1,13 @@
+org.netbeans.modules.openide.filesystems.declmime.MIMEResolverProcessor
+org.netbeans.modules.openide.util.NbBundleProcessor
+org.netbeans.modules.openide.util.ServiceProviderProcessor
+org.netbeans.modules.openide.util.NamedServiceProcessor
+org.netbeans.modules.openide.modules.PatchedPublicProcessor
+org.netbeans.api.annotations.common.proc.StaticResourceProcessor
+org.netbeans.modules.openide.awt.ActionProcessor
+org.netbeans.modules.openide.loaders.DataObjectFactoryProcessor
+org.netbeans.modules.editor.mimelookup.CreateRegistrationProcessor
+org.netbeans.modules.openide.windows.TopComponentProcessor
+org.netbeans.modules.openide.nodes.NodesAnnotationProcessor
+org.netbeans.modules.templates.TemplateProcessor
+org.netbeans.modules.intent.OpenUriHandlerProcessor

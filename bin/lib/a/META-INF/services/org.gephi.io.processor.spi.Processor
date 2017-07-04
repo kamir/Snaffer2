@@ -1,0 +1,8 @@
+org.gephi.io.processor.plugin.DefaultProcessor
+#position=10
+org.gephi.io.processor.plugin.AppendProcessor
+#position=20
+org.gephi.io.processor.plugin.MultiProcessor
+#position=30
+org.gephi.io.processor.plugin.MergeProcessor
+#position=40

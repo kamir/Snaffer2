@@ -1,0 +1,10 @@
+org.gephi.preview.plugin.renderers.EdgeRenderer
+#position=100
+org.gephi.preview.plugin.renderers.ArrowRenderer
+#position=200
+org.gephi.preview.plugin.renderers.NodeRenderer
+#position=300
+org.gephi.preview.plugin.renderers.NodeLabelRenderer
+#position=400
+org.gephi.preview.plugin.renderers.EdgeLabelRenderer
+#position=500
